@@ -1,0 +1,28 @@
+# Ignore everything
+*
+
+# But not these files...
+!/.gitignore
+
+!*.go
+!go.sum
+!go.mod
+!*.yaml
+!*.js
+!*.ts
+
+!.gitleaks.toml
+!.yamllint
+!.golangci.toml
+!.golic.yaml
+!.licignore
+!Dockerfile
+!CODEOWNERS
+!README.md
+!LICENSE
+!renovate.json
+
+# ...even if they are in subdirectories
+!*/
+
+dist/

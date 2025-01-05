@@ -1,0 +1,39 @@
+api: v1
+kind: SinglePage
+metadata:
+  draft: true
+spec:
+  pdf:
+    filename: "custom.pdf"
+  canvas:
+    width: "10cm"
+    height: "10cm"
+    overlap: "0.5cm"
+  marks:
+    generic:
+      type: solid
+      size: 1
+      color: "#000000"
+    topLeftCross:
+      enabled: true
+    topRightCross:
+      enabled: true
+    bottomLeftCross:
+      enabled: true
+    bottomRightCross:
+      enabled: true
+      type: solid
+      size: 1
+      color: "#000000"
+  background:
+    image:
+      path: "./background.svg"
+    color: "#FFFFFF"
+  layers:
+    - name: l0
+      kind: Text
+      value: "hello world"
+      font: "Roboto1"
+    - name: l1
+      kind: "3DBarCode"
+      value: "123456"
