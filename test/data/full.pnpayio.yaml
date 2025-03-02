@@ -2,6 +2,31 @@ api: v1
 kind: SinglePage
 metadata:
   draft: true
+  name: "test-001"
+  customerAddress:
+    Name: "John Doe"
+    Country: "USA"
+    CountryCode: "US"
+    City: "New York"
+    Street: "5th Avenue"
+    StreetNumber: "123"
+    Zip: "10001"
+    PostalCode: "10001"
+    PhoneNumber1: "+1 123 456 789"
+    PhoneNumber2: "+1 123 456 789"
+    Email: "john.doe@gmail.com"
+  deliveryAddress:
+    Name: "Pavel Novak"
+    Country: "Czech Republic"
+    CountryCode: "CZ"
+    City: "Prague"
+    Street: "Vaclavske namesti"
+    StreetNumber: "123"
+    Zip: "11000"
+    PostalCode: "11000"
+    PhoneNumber1: "+420 123 456 789"
+    PhoneNumber2: "+420 123 456 789"
+    Email: "novak@seznam.cz"
 spec:
   pdf:
     filename: "custom.pdf"

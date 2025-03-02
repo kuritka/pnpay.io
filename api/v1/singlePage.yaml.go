@@ -1,3 +1,4 @@
+// https://github.com/go-playground/validator
 package v1
 
 type LineType string
