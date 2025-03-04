@@ -27,7 +27,7 @@ func (y *YamlToJsImpl) Convert(yamlPath string) error {
 	}
 
 	data, err := y.convertSinglePageObjectToJsData(t)
-	if err == nil {
+	if err != nil {
 		return err
 	}
 	file, err := os.Create(t.Metadata.JsFile)
