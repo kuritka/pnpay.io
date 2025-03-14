@@ -26,20 +26,31 @@ func (y *YamlToJsImpl) Convert(yamlPath string) error {
 		return err
 	}
 
-	data, err := y.convertSinglePageObjectToJsData(t)
+	dataCSS, _, _, err := y.convertSinglePageObjectToJsData(t)
 	if err != nil {
 		return err
 	}
-	file, err := os.Create(t.Metadata.JsFile)
+	err = y.write(t.Spec.Output.Css.FilePath, dataCSS)
 	if err != nil {
-		return fmt.Errorf("error creating .js file: %v", err)
+		return err
+	}
+	//fmt.Println(dataHTML)
+	//fmt.Println(dataJS)
+	return nil
+}
+
+func (y *YamlToJsImpl) write(filePath string, data []byte) error {
+	file, err := os.Create(filePath)
+	if err != nil {
+		return fmt.Errorf("error creating file: %v", err)
 	}
 	defer file.Close()
 	_, err = file.Write(data)
 	if err != nil {
-		return fmt.Errorf("error writing .js file: %v", err)
+		return fmt.Errorf("error writing file: %v", err)
 	}
-	return nil
+	// ensure file is written
+	return file.Sync()
 }
 
 // path to yaml file

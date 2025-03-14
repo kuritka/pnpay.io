@@ -9,8 +9,19 @@ const (
 	LineTypeDashed LineType = "dashed"
 )
 
-type Pdf struct {
-	Filename string `yaml:"filename" validate:"required"`
+//type Pdf struct {
+//	FilePath string `yaml:"filename" validate:"required"`
+//}
+
+type FilePath struct {
+	FilePath string `yaml:"filepath" validate:"required"`
+}
+
+type Output struct {
+	Css  FilePath `yaml:"css" validate:"required"`
+	Html FilePath `yaml:"html" validate:"required"`
+	Pdf  FilePath `yaml:"pdf" validate:"required"`
+	Js   FilePath `yaml:"js" validate:"required"`
 }
 
 type Canvas struct {
@@ -62,6 +73,8 @@ type Background struct {
 }
 
 type Marks struct {
+	Border string `yaml:"border"`
+
 	Generic Generic `yaml:"generic"`
 
 	TopLeftCross TopLeftCross `yaml:"topLeftCross"`
@@ -91,7 +104,7 @@ type Layer struct {
 }
 
 type SinglePageSpec struct {
-	Pdf Pdf `yaml:"pdf" validate:"required"`
+	Output Output `yaml:"output" validate:"required"`
 
 	Canvas Canvas `yaml:"canvas" validate:"required"`
 

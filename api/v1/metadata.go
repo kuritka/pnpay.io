@@ -6,7 +6,7 @@ type Metadata struct {
 	Name string `yaml:"name" validate:"required"`
 
 	// Name of js file to be generated. IF not set, than generated from name
-	JsFile string `yaml:"jsFile" validate:"fi;e"`
+	JsFile string `yaml:"jsFile" validate:"file"`
 
 	Customer Address `yaml:"customerAddress"`
 

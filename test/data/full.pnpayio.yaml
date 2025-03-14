@@ -28,13 +28,21 @@ metadata:
     PhoneNumber2: "+420 123 456 789"
     Email: "novak@seznam.cz"
 spec:
-  pdf:
-    filename: "custom.pdf"
+  output:
+    pdf:
+      filepath: "./test/output/custom.pdf"
+    js:
+      filepath: "./test/output/custom.js"
+    css:
+      filepath: "./test/output/custom.css"
+    html:
+      filepath: "./test/output/custom.html"
   canvas:
-    width: "10cm"
-    height: "10cm"
+    width: "15cm"
+    height: "11cm"
     overlap: "0.5cm"
   marks:
+    border: "0.05cm solid black"
     generic:
       type: solid
       size: 1

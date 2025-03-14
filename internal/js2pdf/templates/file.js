@@ -5,7 +5,7 @@ function cropPrintMark(pageSelector, size = '0.3cm', color = 'black',
 ) {
   const page = document.querySelector(pageSelector);                // Select the page element
   const mark = document.createElement('div');
-  const border = '0.05cm solid ' + color;
+  const border = {{.Spec.Marks.Border}}
   mark.style.position = 'absolute';
   if (top !== '') {
     mark.style.top = top;
@@ -51,7 +51,7 @@ function addMarks(pageSelector, size, color) {
 
 // Call the function with the target page selector and size for the marks
 window.onload = function() {
-  addMarks('page[sizeX="15cm"][sizeY="11cm"]', '0.3cm', 'black')
+  addMarks('page[sizeX="{{.Spec.Canvas.Width}}"][sizeY="{{.Spec.Canvas.Height}}"]', '0.3cm', 'black')
 };
 
 function print(sizeX, sizeY){
