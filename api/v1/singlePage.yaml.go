@@ -9,10 +9,6 @@ const (
 	LineTypeDashed LineType = "dashed"
 )
 
-//type Pdf struct {
-//	FilePath string `yaml:"filename" validate:"required"`
-//}
-
 type FilePath struct {
 	FilePath string `yaml:"filepath" validate:"required"`
 }

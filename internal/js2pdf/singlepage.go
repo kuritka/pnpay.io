@@ -34,8 +34,6 @@ func (y *YamlToJsImpl) Convert(yamlPath string) error {
 	if err != nil {
 		return err
 	}
-	//fmt.Println(dataHTML)
-	//fmt.Println(dataJS)
 	return nil
 }
 
@@ -44,7 +42,7 @@ func (y *YamlToJsImpl) write(filePath string, data []byte) error {
 	if err != nil {
 		return fmt.Errorf("error creating file: %v", err)
 	}
-	defer file.Close()
+	defer func() { _ = file.Close() }()
 	_, err = file.Write(data)
 	if err != nil {
 		return fmt.Errorf("error writing file: %v", err)

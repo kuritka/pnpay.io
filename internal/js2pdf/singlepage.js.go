@@ -3,8 +3,9 @@ package js2pdf
 import (
 	"bytes"
 	"embed"
-	v1 "pnpay.io/api/v1"
 	"text/template"
+
+	v1 "pnpay.io/api/v1"
 )
 
 const (
@@ -50,11 +51,11 @@ func conversion(sp *v1.SinglePage, fileName string) ([]byte, error) {
 	return output.Bytes(), nil
 }
 
-//func fillFromYaml[T any](a T, file string) error {
+// func fillFromYaml[T any](a T, file string) error {
 //	data, err := content.ReadFile(file)
 //	if err != nil {
 //		return err
 //	}
 //	err = file.Unmarshal(data, a)
 //	return err
-//}
+// }

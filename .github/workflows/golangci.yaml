@@ -1,0 +1,34 @@
+---
+name: GolangCI
+on:
+  push:
+    paths-ignore:
+      - '**.md'
+  pull_request:
+    branches:
+      - main
+    paths-ignore:
+      - '**.md'
+jobs:
+  lint:
+    name: GolangCI
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-go@v5
+        with:
+          go-version: stable
+      - name: Cache golangci-lint
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/golangci-lint
+          key: golangci-lint.cache-{runner_os}-{working_directory}-{interval_number}-{go.mod_hash}
+          restore-keys: |
+            golangci-lint.cache-{runner_os}-{working_directory}-{interval_number}-
+      - name: GolangCI
+        uses: golangci/golangci-lint-action@v6
+        with:
+          version: v1.64.5
+          args: -v -c .golangci.yaml --timeout 20m
