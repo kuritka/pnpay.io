@@ -1,0 +1,48 @@
+/*variables:*/
+/*- page sizeX: {{.Spec.Canvas.Width}};*/
+/*- page sizeY: {{.Spec.Canvas.Height}};*/
+
+body {
+  background: {{.Spec.Background.Color}};
+}
+
+page {
+  background: white;
+  display: block;
+  margin: 0.5cm auto;
+  box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);
+  padding: 0.2cm 0.5cm;
+  position: relative;
+}
+
+@media print {
+  body, page {
+    background: white;
+    margin: 0;
+    box-shadow: 0;
+  }
+
+  @page {
+    size: 17cm 13cm; /* Set the page size to 15 x 10 cm */
+    padding: 0.5cm;
+    margin: 1cm; /* Adjust margins as needed */
+  }
+}
+
+/* Hide elements that should not be printed */
+.no-print {
+  display: none;
+}
+
+/*<page sizeX="{{.Spec.Canvas.Width}}" sizeY="{{.Spec.Canvas.Height}}"></page>*/
+page[sizeX="{{.Spec.Canvas.Width}}"][sizeY="{{.Spec.Canvas.Height}}"] {
+  width: {{.Spec.Canvas.Width}};
+  height: {{.Spec.Canvas.Height}};
+}
+
+#qrcode {
+  width: 200px;
+  height: 200px;
+  margin: 20px;
+  background: #fc3;
+}
