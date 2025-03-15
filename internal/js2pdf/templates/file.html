@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <link rel="stylesheet" href="file.css">
   <title>Title</title>
-  <script src="file.js"></script>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="{{ .Spec.Output.Css.Filename }}">
+  <script src="{{ .Spec.Output.Js.Filename }}"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -12,7 +12,7 @@
 </head>
 <body>
 <page sizeX="{{.Spec.Canvas.Width}}" sizeY="{{.Spec.Canvas.Height}}"><h1>Lorem ipsum dolor sit amet.</h1>
-  <div id="qrcode"></div>
+  <div id="{{(index .Spec.Layers 1).Name}}"></div>
   <button name="print" id="print" >print</button>
 </page>
 <script>
@@ -21,8 +21,8 @@
     // https://stackoverflow.com/questions/37803884/qr-code-using-jquery
     // https://www.barcoderesource.com/qrcodebarcode.shtml
     // https://github.com/jeromeetienne/jquery-qrcode
-    $('#qrcode').qrcode({
-      text: "https://www.example.com" // Replace this with the text or URL you want to encode
+    $('#{{(index .Spec.Layers 1).Name}}').qrcode({
+      text: "{{(index .Spec.Layers 1).Value}}" // Replace this with the text or URL you want to encode
     });
 
     // Print the page

@@ -5,7 +5,7 @@ function cropPrintMark(pageSelector, size = '0.3cm', color = 'black',
 ) {
   const page = document.querySelector(pageSelector);                // Select the page element
   const mark = document.createElement('div');
-  const border = {{.Spec.Marks.Border}}
+  const border = "{{.Spec.Marks.Border}}"
   mark.style.position = 'absolute';
   if (top !== '') {
     mark.style.top = top;

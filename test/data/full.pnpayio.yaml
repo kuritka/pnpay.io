@@ -30,13 +30,17 @@ metadata:
 spec:
   output:
     pdf:
-      filepath: "./test/output/custom.pdf"
+      dir: "./test/output/"
+      filename: "custom.pdf"
     js:
-      filepath: "./test/output/custom.js"
+      dir: "./test/output/"
+      filename: "custom.js"
     css:
-      filepath: "./test/output/custom.css"
+      dir: "./test/output/"
+      filename: "custom.css"
     html:
-      filepath: "./test/output/custom.html"
+      dir: "./test/output/"
+      filename: "custom.html"
   canvas:
     width: "15cm"
     height: "11cm"
@@ -67,6 +71,6 @@ spec:
       kind: Text
       value: "hello world"
       font: "Roboto1"
-    - name: l1
+    - name: "barcode"
       kind: "3DBarCode"
-      value: "123456"
+      value: "https://www.cloud.example.com"

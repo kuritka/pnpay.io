@@ -26,11 +26,19 @@ func (y *YamlToJsImpl) Convert(yamlPath string) error {
 		return err
 	}
 
-	dataCSS, _, _, err := y.convertSinglePageObjectToJsData(t)
+	dataCSS, dataHTML, dataJS, err := y.convertSinglePageObjectToJsData(t)
 	if err != nil {
 		return err
 	}
-	err = y.write(t.Spec.Output.Css.FilePath, dataCSS)
+	err = y.write(t.Spec.Output.Css.GetFilePath(), dataCSS)
+	if err != nil {
+		return err
+	}
+	err = y.write(t.Spec.Output.Html.GetFilePath(), dataHTML)
+	if err != nil {
+		return err
+	}
+	err = y.write(t.Spec.Output.Js.GetFilePath(), dataJS)
 	if err != nil {
 		return err
 	}

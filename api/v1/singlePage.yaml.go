@@ -1,6 +1,11 @@
 // https://github.com/go-playground/validator
 package v1
 
+import (
+	"fmt"
+	"strings"
+)
+
 type LineType string
 
 const (
@@ -10,7 +15,12 @@ const (
 )
 
 type FilePath struct {
-	FilePath string `yaml:"filepath" validate:"required"`
+	Dir      string `yaml:"dir" validate:"required"`
+	Filename string `yaml:"filename" validate:"required"`
+}
+
+func (f FilePath) GetFilePath() string {
+	return fmt.Sprintf("%s/%s", strings.TrimSuffix(f.Dir, "/"), f.Filename)
 }
 
 type Output struct {
