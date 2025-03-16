@@ -2,11 +2,12 @@ package main
 
 import (
 	"log"
-	"pnpay.io/internal/cli"
-	"pnpay.io/internal/logging"
+	"time"
 
 	"github.com/alecthomas/kong"
+	"pnpay.io/internal/cli"
 	"pnpay.io/internal/js2pdf"
+	"pnpay.io/internal/logging"
 )
 
 var logger = logging.Logger()
@@ -23,7 +24,15 @@ func main() {
 		log.Fatalf("error: %v", err)
 	}
 
+	go func() {
+		time.Sleep(5 * time.Second)
+		err = js2pdf.GeneratePDF("http://localhost:8090", "./test/output/output.pdf", 16, 12)
+		if err != nil {
+			log.Fatalf("error: %v", err)
+		}
+	}()
+
 	if config.IsLocalServerAllowed() {
-		startWebServer(config, err)
+		startWebServer(config)
 	}
 }

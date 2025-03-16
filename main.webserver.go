@@ -4,20 +4,22 @@ import (
 	"crypto/sha256"
 	"fmt"
 	"io/fs"
-	"io/ioutil"
 	"net/http"
+	"os"
 	"path/filepath"
-	"pnpay.io/internal/cli"
 	"sort"
+
+	"pnpay.io/internal/cli"
 )
 
 // The JS code in the browser detects changes when the SHA changes, and if it's different, the browser
 // automatically refreshes. The SHA code is calculated from individual files in the folder where we deploy the output.
 var initialSHA string
 
-func startWebServer(config *cli.Config, err error) {
+func startWebServer(config *cli.Config) {
 	logger.Info().Msg("Starting local server")
-	// following code generates sha for teh index.html file, so web browser automatically reloads the page when the file changes
+	// following code generates sha for the index.html file, so web browser automatically
+	// reloads the page when the file changes
 	initialSHA = computeSHA(config.LocalServerPath)
 	logger.Info().Msgf("Initial SHA: %s", initialSHA)
 	http.HandleFunc("/sha", shaHandler) // Endpoint serving the SHA
@@ -26,7 +28,7 @@ func startWebServer(config *cli.Config, err error) {
 	http.Handle("/", server)
 
 	logger.Info().Msgf("Server runs on http://localhost:%s/\n", config.LocaLServerPort)
-	err = http.ListenAndServe(":"+config.LocaLServerPort, nil)
+	err := http.ListenAndServe(":"+config.LocaLServerPort, nil)
 	if err != nil {
 		logger.Fatal().Msg("Server failed to start")
 	}
@@ -45,7 +47,7 @@ func computeSHA(dirPath string) string {
 			return nil
 		}
 		// Read file content
-		data, err := ioutil.ReadFile(path)
+		data, err := os.ReadFile(path)
 		if err != nil {
 			return err
 		}
@@ -70,5 +72,8 @@ func computeSHA(dirPath string) string {
 
 // Serve SHA hash (remains static during server lifetime)
 func shaHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintln(w, initialSHA)
+	_, err := fmt.Fprintln(w, initialSHA)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+	}
 }
