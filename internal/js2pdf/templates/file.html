@@ -9,11 +9,12 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
 </head>
 <body>
-<page sizeX="{{.Spec.Canvas.Width}}" sizeY="{{.Spec.Canvas.Height}}"><h1>Lorem ipsum dolor sit amet.</h1>
+<page sizeX="{{.Spec.Canvas.Width}}" sizeY="{{.Spec.Canvas.Height}}">
+  <h1 class="{{(index .Spec.Layers 0).Class}}">{{(index .Spec.Layers 0).Value}}</h1>
   <div id="{{(index .Spec.Layers 1).Name}}"></div>
-  <button name="print" id="print" >print</button>
 </page>
 <script>
   $(document).ready(function() {
@@ -23,11 +24,6 @@
     // https://github.com/jeromeetienne/jquery-qrcode
     $('#{{(index .Spec.Layers 1).Name}}').qrcode({
       text: "{{(index .Spec.Layers 1).Value}}" // Replace this with the text or URL you want to encode
-    });
-
-    // Print the page
-    $('#print').click(function() {
-      printCurrentPage()
     });
   });
 </script>

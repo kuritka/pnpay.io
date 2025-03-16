@@ -3,6 +3,7 @@ module pnpay.io
 go 1.23
 
 require (
+	github.com/alecthomas/kong v1.9.0
 	github.com/go-yaml/yaml v2.1.0+incompatible
 	github.com/rs/zerolog v1.33.0
 )

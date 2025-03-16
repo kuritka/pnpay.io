@@ -34,13 +34,13 @@ spec:
       filename: "custom.pdf"
     js:
       dir: "./test/output/"
-      filename: "custom.js"
+      filename: "script.js"
     css:
       dir: "./test/output/"
-      filename: "custom.css"
+      filename: "styles.css"
     html:
       dir: "./test/output/"
-      filename: "custom.html"
+      filename: "index.html"
   canvas:
     width: "15cm"
     height: "11cm"
@@ -71,6 +71,7 @@ spec:
       kind: Text
       value: "hello world"
       font: "Roboto1"
+      class: "blah"
     - name: "barcode"
       kind: "3DBarCode"
       value: "https://www.cloud.example.com"

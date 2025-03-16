@@ -50,12 +50,3 @@ func conversion(sp *v1.SinglePage, fileName string) ([]byte, error) {
 	}
 	return output.Bytes(), nil
 }
-
-// func fillFromYaml[T any](a T, file string) error {
-//	data, err := content.ReadFile(file)
-//	if err != nil {
-//		return err
-//	}
-//	err = file.Unmarshal(data, a)
-//	return err
-// }

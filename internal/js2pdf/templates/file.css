@@ -46,3 +46,14 @@ page[sizeX="{{.Spec.Canvas.Width}}"][sizeY="{{.Spec.Canvas.Height}}"] {
   margin: 20px;
   background: #fc3;
 }
+
+.blah {
+  color: #d32f2f; /* Slightly softer red */
+  font-family: "Roboto", sans-serif;
+  font-weight: 300; /* Ensuring it's light */
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 10px;
+  border-bottom: 2px solid #d32f2f; /* Adds a nice bottom border */
+  display: inline-block;
+}

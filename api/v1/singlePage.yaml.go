@@ -102,11 +102,13 @@ const (
 )
 
 type Layer struct {
-	Name string `yaml:"name" validate:"required"`
+	Name string `yaml:"name" validate:"required" json:"name,omitempty"`
 
-	Kind LayerType `yaml:"kind" validate:"required"`
+	Kind LayerType `yaml:"kind" validate:"required" json:"kind,omitempty"`
 
-	Value string `yaml:"value" validate:"required"`
+	Value string `yaml:"value" validate:"required" json:"value,omitempty"`
+
+	Class string `yaml:"class" json:"class,omitempty"`
 }
 
 type SinglePageSpec struct {
