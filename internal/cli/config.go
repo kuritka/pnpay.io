@@ -16,6 +16,7 @@ const (
 type Config struct {
 	LocalServerPath string `optional:"" env:"LOCAL_SERVER_PATH"`
 	LocaLServerPort string `optional:"" env:"LOCAL_SERVER_PORT" default:"8090"`
+	Log             Log    `embed:""`
 }
 
 func (c Config) IsLocalServerAllowed() bool {

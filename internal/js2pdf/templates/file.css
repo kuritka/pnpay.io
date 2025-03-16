@@ -50,10 +50,26 @@ page[sizeX="{{.Spec.Canvas.Width}}"][sizeY="{{.Spec.Canvas.Height}}"] {
 .blah {
   color: #d32f2f; /* Slightly softer red */
   font-family: "Roboto", sans-serif;
-  font-weight: 300; /* Ensuring it's light */
+  font-weight: 400; /* Ensuring it's light */
   text-transform: uppercase;
-  letter-spacing: 1px;
   padding: 10px;
   border-bottom: 2px solid #d32f2f; /* Adds a nice bottom border */
   display: inline-block;
+
+  /* Adjustments for width consistency */
+  letter-spacing: 2px; /* Increase spacing to match "Hello World" */
+  word-spacing: 6px;   /* Adjust gap between words */
+}
+
+.note {
+  font-size: 14px;
+  font-family: Arial, sans-serif;
+  color: #555;
+  text-align: left;
+  margin-top: 12px;
+  opacity: 0.85;
+  max-width: {{.Spec.Canvas.Width}};
+  line-height: 1.4;
+  margin-left: auto;
+  margin-right: auto;
 }

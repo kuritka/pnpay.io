@@ -2,16 +2,20 @@ package main
 
 import (
 	"log"
-	"net/http"
 	"pnpay.io/internal/cli"
+	"pnpay.io/internal/logging"
 
 	"github.com/alecthomas/kong"
 	"pnpay.io/internal/js2pdf"
 )
 
+var logger = logging.Logger()
+
 func main() {
 	var config = &cli.Config{}
 	_ = kong.Parse(config)
+	logging.Init(config)
+	logger.Info().Msg("pnpay.io transition started")
 
 	convertor := js2pdf.NewYamlToJsImpl()
 	err := convertor.Convert("./test/data/full.pnpayio.yaml")
@@ -20,13 +24,6 @@ func main() {
 	}
 
 	if config.IsLocalServerAllowed() {
-		fs := http.FileServer(http.Dir(config.LocalServerPath))
-		http.Handle("/", fs)
-
-		log.Printf("Server runs on http://localhost:%s/\n", config.LocaLServerPort)
-		err = http.ListenAndServe(":"+config.LocaLServerPort, nil)
-		if err != nil {
-			log.Fatal(err)
-		}
+		startWebServer(config, err)
 	}
 }

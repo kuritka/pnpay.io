@@ -67,11 +67,14 @@ spec:
       path: "./background.svg"
     color: "#FFFFFF"
   layers:
-    - name: l0
+    - name: title
       kind: Text
-      value: "hello world"
-      font: "Roboto1"
+      value: "Scan & Go"
       class: "blah"
-    - name: "barcode"
-      kind: "3DBarCode"
+    - name: barcode
+      kind: 3DBarCode
       value: "https://www.cloud.example.com"
+    - name: note
+      kind: Text
+      value: "* This barcode contains important information. Please scan it using a compatible scanner or mobile app. If you have issues, ensure your device is properly focused and try again."
+      class: "note"

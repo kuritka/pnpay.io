@@ -15,6 +15,7 @@
 <page sizeX="{{.Spec.Canvas.Width}}" sizeY="{{.Spec.Canvas.Height}}">
   <h1 class="{{(index .Spec.Layers 0).Class}}">{{(index .Spec.Layers 0).Value}}</h1>
   <div id="{{(index .Spec.Layers 1).Name}}"></div>
+  <p class="{{(index .Spec.Layers 2).Class}}">{{(index .Spec.Layers 2).Value}}</p>
 </page>
 <script>
   $(document).ready(function() {
@@ -28,4 +29,23 @@
   });
 </script>
 </body>
+<script>
+  let lastSHA = null;
+
+  async function checkForUpdates() {
+    try {
+      const response = await fetch("/sha", { cache: "no-store" });
+      const newSHA = await response.text();
+
+      if (lastSHA && newSHA.trim() !== lastSHA.trim()) {
+        console.log("Page content changed. Reloading...");
+        location.reload();
+      }
+      lastSHA = newSHA.trim();
+    } catch (error) {
+      console.log("Error checking SHA:", error);
+    }
+  }
+  setInterval(checkForUpdates, 2000); // Check every 2 seconds
+</script>
 </html>
