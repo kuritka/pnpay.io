@@ -28,6 +28,16 @@ metadata:
     PhoneNumber2: "+420 123 456 789"
     Email: "novak@seznam.cz"
 spec:
+  input:
+    css:
+      dir: "templates/"
+      filename: "single_page.template.css"
+    html:
+      dir: "templates/"
+      filename: "single_page.template.html"
+    js:
+      dir: "templates/"
+      filename: "single_page.template.js"
   output:
     pdf:
       dir: "./test/output/"

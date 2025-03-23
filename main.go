@@ -24,15 +24,20 @@ func main() {
 		log.Fatalf("error: %v", err)
 	}
 
+	ch := make(chan struct{})
 	go func() {
-		time.Sleep(5 * time.Second)
+		time.Sleep(1 * time.Second)
+		logger.Info().Msg("generate pdf....")
 		err = js2pdf.GeneratePDF("http://localhost:8090", "./test/output/output.pdf", 16, 12)
 		if err != nil {
 			log.Fatalf("error: %v", err)
 		}
+		ch <- struct{}{}
 	}()
 
 	if config.IsLocalServerAllowed() {
 		startWebServer(config)
 	}
+	<-ch
+	close(ch)
 }

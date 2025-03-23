@@ -6,26 +6,28 @@ body {
   background: {{.Spec.Background.Color}};
 }
 
+/* This is what you see on WebPage */
 page {
-  background: white;
+  background: lawngreen;
   display: block;
-  margin: 0.5cm auto;
   box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);
-  padding: 0.2cm 0.5cm;
+  margin: 0cm auto;
+  padding: 0.0cm 0.5cm;
   position: relative;
 }
 
+/*here I set what is printed in PDF */
 @media print {
   body, page {
-    background: white;
-    margin: 0;
     box-shadow: 0;
+    padding-right: 0.5cm;
+    margin-right: 0.5cm;
   }
 
   @page {
-    size: 17cm 13cm; /* Set the page size to 15 x 10 cm */
+    size: 16cm 12cm; /* size of page including printing marks and printed page */
     padding: 0.5cm;
-    margin: 1cm; /* Adjust margins as needed */
+    margin: 0cm; /* Adjust margins as needed */
   }
 }
 

@@ -16,30 +16,34 @@ func GeneratePDF(url string, outputPath string, widthCM, heightCM float64) error
 	defer cancel()
 
 	// Timeout to avoid infinite wait
-	ctx, cancel = context.WithTimeout(ctx, 30*time.Second)
+	ctx, cancel = context.WithTimeout(ctx, 20*time.Second)
 	defer cancel()
 
 	// Convert cm to inches (1 cm = 0.3937 inch)
 	widthInches := widthCM * 0.3937
 	heightInches := heightCM * 0.3937
 
+	// Convert cm to pixels (1 cm ≈ 37.8 px)
+	widthPx := int64((widthCM + 0) * 37.8)
+	heightPx := int64((heightCM + 0) * 37.8)
+
 	// PDF output buffer
 	var pdfData []byte
 	err := chromedp.Run(ctx,
-		chromedp.Navigate(url),       // Open the HTML page
-		chromedp.WaitVisible("body"), // Ensure page is fully loaded
-		chromedp.EmulateViewport(int64(widthCM*37.8), int64(heightCM*37.8)), // Match viewport size to PDF
+		chromedp.EmulateViewport(widthPx, heightPx), // Force viewport to match PDF size exactly
+		chromedp.Navigate(url),                      // Open the HTML page
+		chromedp.WaitVisible("body"),                // Ensure page is fully loaded
 		chromedp.ActionFunc(func(ctx context.Context) error {
 			var err error
 			pdfData, _, err = page.PrintToPDF().
 				WithPaperWidth(widthInches).   // Exact width
 				WithPaperHeight(heightInches). // Exact height
-				WithPrintBackground(true).     // Ensure all CSS is included
+				WithPrintBackground(true).     // Ensure background (CSS, images) is included
 				WithMarginTop(0).              // Remove top margin
 				WithMarginBottom(0).           // Remove bottom margin
 				WithMarginLeft(0).             // Remove left margin
 				WithMarginRight(0).            // Remove right margin
-				WithScale(1.0).                // Prevent automatic shrinking
+				WithScale(1.0).                // Ensure content is not shrunk or cut
 				Do(ctx)
 			return err
 		}),

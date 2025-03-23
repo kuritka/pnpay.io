@@ -9,9 +9,9 @@ import (
 )
 
 const (
-	cssFile  string = "templates/file.css"
-	htmlFile string = "templates/file.html"
-	jsFile   string = "templates/file.js"
+	cssFile  string = "templates/single_page.template.css"
+	htmlFile string = "templates/single_page.template.html"
+	jsFile   string = "templates/single_page.template.js"
 )
 
 //go:embed templates/*.css
@@ -22,15 +22,15 @@ var content embed.FS
 
 // path - output js file
 func (y *YamlToJsImpl) convertSinglePageObjectToJsData(sp *v1.SinglePage) (css []byte, html []byte, js []byte, err error) {
-	css, err = conversion(sp, cssFile)
+	css, err = conversion(sp, sp.Spec.Input.Css.GetFilePath())
 	if err != nil {
 		return nil, nil, nil, err
 	}
-	html, err = conversion(sp, htmlFile)
+	html, err = conversion(sp, sp.Spec.Input.Html.GetFilePath())
 	if err != nil {
 		return nil, nil, nil, err
 	}
-	js, err = conversion(sp, jsFile)
+	js, err = conversion(sp, sp.Spec.Input.Js.GetFilePath())
 	if err != nil {
 		return nil, nil, nil, err
 	}

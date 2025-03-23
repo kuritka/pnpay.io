@@ -30,6 +30,12 @@ type Output struct {
 	Js   FilePath `yaml:"js" validate:"required"`
 }
 
+type Input struct {
+	Css  FilePath `yaml:"css" validate:"required"`
+	Html FilePath `yaml:"html" validate:"required"`
+	Js   FilePath `yaml:"js" validate:"required"`
+}
+
 type Canvas struct {
 	Width string `yaml:"width" validate:"required"`
 
@@ -113,6 +119,8 @@ type Layer struct {
 
 type SinglePageSpec struct {
 	Output Output `yaml:"output" validate:"required"`
+
+	Input Input `yaml:"input" validate:"required"`
 
 	Canvas Canvas `yaml:"canvas" validate:"required"`
 
