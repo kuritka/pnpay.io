@@ -3,31 +3,28 @@
 /*- page sizeY: {{.Spec.Canvas.Height}};*/
 
 body {
-  background: {{.Spec.Background.Color}};
+  /*background behind the page*/
+  /*background: {{.Spec.Background.Color}};*/
+  background: #555555;
 }
 
 /* This is what you see on WebPage */
 page {
-  background: lawngreen;
+  background: linear-gradient(cadetblue, white);
   display: block;
   box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);
-  margin: 0cm auto;
+  margin: 0cm 0cm;
   padding: 0.0cm 0.5cm;
   position: relative;
 }
 
 /*here I set what is printed in PDF */
 @media print {
-  body, page {
-    box-shadow: 0;
-    padding-right: 0.5cm;
-    margin-right: 0.5cm;
-  }
 
   @page {
     size: 16cm 12cm; /* size of page including printing marks and printed page */
     padding: 0.5cm;
-    margin: 0cm; /* Adjust margins as needed */
+    margin: 0; /* Adjust margins as needed */
   }
 }
 

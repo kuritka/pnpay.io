@@ -32,6 +32,7 @@ func main() {
 		if err != nil {
 			log.Fatalf("error: %v", err)
 		}
+		logger.Info().Msg("done....")
 		ch <- struct{}{}
 	}()
 

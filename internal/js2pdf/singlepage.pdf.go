@@ -20,19 +20,18 @@ func GeneratePDF(url string, outputPath string, widthCM, heightCM float64) error
 	defer cancel()
 
 	// Convert cm to inches (1 cm = 0.3937 inch)
-	widthInches := widthCM * 0.3937
-	heightInches := heightCM * 0.3937
+	widthInches := widthCM * 0.393701
+	heightInches := heightCM * 0.393701
 
 	// Convert cm to pixels (1 cm ≈ 37.8 px)
-	widthPx := int64((widthCM + 0) * 37.8)
-	heightPx := int64((heightCM + 0) * 37.8)
+	//widthPx := int64((widthCM + 0) * 35)
+	//heightPx := int64((heightCM + 0) * 35)
 
 	// PDF output buffer
 	var pdfData []byte
 	err := chromedp.Run(ctx,
-		chromedp.EmulateViewport(widthPx, heightPx), // Force viewport to match PDF size exactly
-		chromedp.Navigate(url),                      // Open the HTML page
-		chromedp.WaitVisible("body"),                // Ensure page is fully loaded
+		chromedp.Navigate(url),       // Open the HTML page
+		chromedp.WaitVisible("body"), // Ensure page is fully loaded
 		chromedp.ActionFunc(func(ctx context.Context) error {
 			var err error
 			pdfData, _, err = page.PrintToPDF().
