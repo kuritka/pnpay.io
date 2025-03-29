@@ -1,10 +1,10 @@
 /*variables:*/
-/*- page sizeX: {{.Spec.Canvas.Width}};*/
-/*- page sizeY: {{.Spec.Canvas.Height}};*/
+/*- page sizeX: {{.SinglePage.Spec.Canvas.Width}};*/
+/*- page sizeY: {{.SinglePage.Spec.Canvas.Height}};*/
 
 body {
   /*background behind the page*/
-  /*background: {{.Spec.Background.Color}};*/
+  /*background: {{.SinglePage.Spec.Background.Color}};*/
   background: #555555;
 }
 
@@ -33,10 +33,10 @@ page {
   display: none;
 }
 
-/*<page sizeX="{{.Spec.Canvas.Width}}" sizeY="{{.Spec.Canvas.Height}}"></page>*/
-page[sizeX="{{.Spec.Canvas.Width}}"][sizeY="{{.Spec.Canvas.Height}}"] {
-  width: {{.Spec.Canvas.Width}};
-  height: {{.Spec.Canvas.Height}};
+/*<page sizeX="{{.SinglePage.Spec.Canvas.Width}}" sizeY="{{.SinglePage.Spec.Canvas.Height}}"></page>*/
+page[sizeX="{{.SinglePage.Spec.Canvas.Width}}"][sizeY="{{.SinglePage.Spec.Canvas.Height}}"] {
+  width: {{.SinglePage.Spec.Canvas.Width}};
+  height: {{.SinglePage.Spec.Canvas.Height}};
 }
 
 #qrcode {
@@ -67,7 +67,7 @@ page[sizeX="{{.Spec.Canvas.Width}}"][sizeY="{{.Spec.Canvas.Height}}"] {
   text-align: left;
   margin-top: 12px;
   opacity: 0.85;
-  max-width: {{.Spec.Canvas.Width}};
+  max-width: {{.SinglePage.Spec.Canvas.Width}};
   line-height: 1.4;
   margin-left: auto;
   margin-right: auto;

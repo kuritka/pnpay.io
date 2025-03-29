@@ -3,8 +3,8 @@
 <head>
   <title>Title</title>
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="{{ .Spec.Output.Css.Filename }}">
-  <script src="{{ .Spec.Output.Js.Filename }}"></script>
+  <link rel="stylesheet" href="{{ .SinglePage.Spec.Output.Css.Filename }}">
+  <script src="{{ .SinglePage.Spec.Output.Js.Filename }}"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.qrcode/1.0/jquery.qrcode.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
@@ -12,10 +12,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
 </head>
 <body>
-<page sizeX="{{.Spec.Canvas.Width}}" sizeY="{{.Spec.Canvas.Height}}">
-  <h1 class="{{(index .Spec.Layers 0).Class}}">{{(index .Spec.Layers 0).Value}}</h1>
-  <div id="{{(index .Spec.Layers 1).Name}}"></div>
-  <p class="{{(index .Spec.Layers 2).Class}}">{{(index .Spec.Layers 2).Value}}</p>
+<page sizeX="{{.SinglePage.Spec.Canvas.Width}}" sizeY="{{.SinglePage.Spec.Canvas.Height}}">
+  <h1 class="{{(index .SinglePage.Spec.Layers 0).Class}}">{{(index .SinglePage.Spec.Layers 0).Value}}</h1>
+  <div id="{{(index .SinglePage.Spec.Layers 1).Name}}"></div>
+  <p class="{{(index .SinglePage.Spec.Layers 2).Class}}">{{(index .SinglePage.Spec.Layers 2).Value}}</p>
 </page>
 <script>
   $(document).ready(function() {
@@ -23,8 +23,8 @@
     // https://stackoverflow.com/questions/37803884/qr-code-using-jquery
     // https://www.barcoderesource.com/qrcodebarcode.shtml
     // https://github.com/jeromeetienne/jquery-qrcode
-    $('#{{(index .Spec.Layers 1).Name}}').qrcode({
-      text: "{{(index .Spec.Layers 1).Value}}" // Replace this with the text or URL you want to encode
+    $('#{{(index .SinglePage.Spec.Layers 1).Name}}').qrcode({
+      text: "{{(index .SinglePage.Spec.Layers 1).Value}}" // Replace this with the text or URL you want to encode
     });
   });
 </script>

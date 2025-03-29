@@ -6,12 +6,14 @@ import (
 	"os"
 	"time"
 
+	v1 "pnpay.io/api/v1"
+
 	"github.com/chromedp/cdproto/page"
 	"github.com/chromedp/chromedp"
 )
 
 // Convert HTML to PDF
-func GeneratePDF(url string, outputPath string, widthCM, heightCM float64) error {
+func GeneratePDF(url string, outputPath string, doc *v1.SinglePageExtended) error {
 	ctx, cancel := chromedp.NewContext(context.Background())
 	defer cancel()
 
@@ -20,12 +22,12 @@ func GeneratePDF(url string, outputPath string, widthCM, heightCM float64) error
 	defer cancel()
 
 	// Convert cm to inches (1 cm = 0.3937 inch)
-	widthInches := widthCM * 0.393701
-	heightInches := heightCM * 0.393701
+	widthInches := doc.Extensions.PDFCanvas.WidthCM * 0.393701
+	heightInches := doc.Extensions.PDFCanvas.HeightCM * 0.393701
 
 	// Convert cm to pixels (1 cm ≈ 37.8 px)
-	//widthPx := int64((widthCM + 0) * 35)
-	//heightPx := int64((heightCM + 0) * 35)
+	// widthPx := int64((widthCM + 0) * 35)
+	// heightPx := int64((heightCM + 0) * 35)
 
 	// PDF output buffer
 	var pdfData []byte

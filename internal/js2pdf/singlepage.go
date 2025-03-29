@@ -20,29 +20,32 @@ func NewYamlToJsImpl() *YamlToJsImpl {
 	return &YamlToJsImpl{}
 }
 
-func (y *YamlToJsImpl) Convert(yamlPath string) error {
+func (y *YamlToJsImpl) Convert(yamlPath string) (*v1.SinglePageExtended, error) {
 	t, err := y.convertYamlToSinglePageObject(yamlPath)
 	if err != nil {
-		return err
+		return nil, err
 	}
-
-	dataCSS, dataHTML, dataJS, err := y.convertSinglePageObjectToJsData(t)
+	doc, err := v1.NewSinglePageExtended(t)
 	if err != nil {
-		return err
+		return nil, err
+	}
+	dataCSS, dataHTML, dataJS, err := y.convertSinglePageObjectToJsData(doc)
+	if err != nil {
+		return nil, err
 	}
 	err = y.write(t.Spec.Output.Css.GetFilePath(), dataCSS)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	err = y.write(t.Spec.Output.Html.GetFilePath(), dataHTML)
 	if err != nil {
-		return err
+		return nil, err
 	}
 	err = y.write(t.Spec.Output.Js.GetFilePath(), dataJS)
 	if err != nil {
-		return err
+		return nil, err
 	}
-	return nil
+	return doc, nil
 }
 
 func (y *YamlToJsImpl) write(filePath string, data []byte) error {
