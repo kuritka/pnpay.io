@@ -41,8 +41,12 @@ type Canvas struct {
 
 	Height string `yaml:"height" validate:"required"`
 
-	// ColorOverlap: Spadavka https://www.tonerpartner.cz/clanky/orezove-znacky-proc-jsou-pro-tisk-dulezite-a-jak-je-vytvorit-53251cz39332/
-	ColorOverlap string `yaml:"overlap" validate:"required"`
+	// ShadowOverlap: Spadavka https://www.tonerpartner.cz/clanky/orezove-znacky-proc-jsou-pro-tisk-dulezite-a-jak-je-vytvorit-53251cz39332/
+	ShadowOverlap string `yaml:"overlap" validate:"required"`
+
+	InnerPadding string `yaml:"innerPadding" validate:"required"`
+
+	ExtPadding string `yaml:"extPadding" validate:"required"`
 }
 
 type Generic struct {
@@ -96,6 +100,8 @@ type Marks struct {
 	BottomLeftCross BottomLeftCross `yaml:"bottomLeftCross"`
 
 	BottomRightCross BottomRightCross `yaml:"bottomRightCross"`
+
+	Size string `yaml:"size"`
 }
 
 type LayerType string

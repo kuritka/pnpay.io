@@ -1,74 +1,46 @@
-/*variables:*/
-/*- page sizeX: {{.SinglePage.Spec.Canvas.Width}};*/
-/*- page sizeY: {{.SinglePage.Spec.Canvas.Height}};*/
-
-body {
-  /*background behind the page*/
-  /*background: {{.SinglePage.Spec.Background.Color}};*/
-  background: #555555;
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 17cm;
+  height: 13cm;
+  box-sizing: border-box;
+  background: #e0e0e0; /* Light gray background for the full page */
 }
 
-/* This is what you see on WebPage */
-page {
-  background: linear-gradient(cadetblue, white);
-  display: block;
-  box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);
-  margin: 0cm 0cm;
-  padding: 0.0cm 0.5cm;
-  position: relative;
+@page {
+  size: 17cm 13cm;
+  margin: 0;
 }
 
-/*here I set what is printed in PDF */
 @media print {
+  html, body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background: #e0e0e0; /* Keep gray background also in printed PDF */
 
-  @page {
-    size: 16cm 12cm; /* size of page including printing marks and printed page */
-    padding: 0.5cm;
-    margin: 0; /* Adjust margins as needed */
+    /*
+     * IMPORTANT: When printing from Adobe Reader or browser, make sure:
+     * - "Print background graphics" is enabled
+     * - Scaling is set to 100% or "Actual size" to preserve precise dimensions
+     */
+  }
+
+  page {
+    box-shadow: none !important; /* Remove visual shadow from printed output */
   }
 }
 
-/* Hide elements that should not be printed */
-.no-print {
-  display: none;
-}
-
-/*<page sizeX="{{.SinglePage.Spec.Canvas.Width}}" sizeY="{{.SinglePage.Spec.Canvas.Height}}"></page>*/
-page[sizeX="{{.SinglePage.Spec.Canvas.Width}}"][sizeY="{{.SinglePage.Spec.Canvas.Height}}"] {
-  width: {{.SinglePage.Spec.Canvas.Width}};
-  height: {{.SinglePage.Spec.Canvas.Height}};
-}
-
-#qrcode {
-  width: 200px;
-  height: 200px;
-  margin: 20px;
-  background: #fc3;
-}
-
-.blah {
-  color: #d32f2f; /* Slightly softer red */
-  font-family: "Roboto", sans-serif;
-  font-weight: 400; /* Ensuring it's light */
-  text-transform: uppercase;
-  padding: 10px;
-  border-bottom: 2px solid #d32f2f; /* Adds a nice bottom border */
-  display: inline-block;
-
-  /* Adjustments for width consistency */
-  letter-spacing: 2px; /* Increase spacing to match "Hello World" */
-  word-spacing: 6px;   /* Adjust gap between words */
-}
-
-.note {
-  font-size: 14px;
-  font-family: Arial, sans-serif;
-  color: #555;
-  text-align: left;
-  margin-top: 12px;
-  opacity: 0.85;
-  max-width: {{.SinglePage.Spec.Canvas.Width}};
-  line-height: 1.4;
-  margin-left: auto;
-  margin-right: auto;
+page {
+  background: white;
+  width: 15cm;
+  height: 11cm;
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  top: 1cm;
+  left: 1cm;
+  box-sizing: border-box;
+  box-shadow: 0 0 0.5cm rgba(0, 0, 0, 0.2); /* Visual shadow in preview mode */
+  outline: 1px solid red; /* Debug only: remove in production */
 }

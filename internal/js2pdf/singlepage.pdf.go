@@ -22,8 +22,8 @@ func GeneratePDF(url string, outputPath string, doc *v1.SinglePageExtended) erro
 	defer cancel()
 
 	// Convert cm to inches (1 cm = 0.3937 inch)
-	widthInches := doc.Extensions.PDFCanvas.WidthCM * 0.393701
-	heightInches := doc.Extensions.PDFCanvas.HeightCM * 0.393701
+	widthInches := doc.Extensions.PDFCanvas.Width * 0.393701
+	heightInches := doc.Extensions.PDFCanvas.Height * 0.393701
 
 	// Convert cm to pixels (1 cm ≈ 37.8 px)
 	// widthPx := int64((widthCM + 0) * 35)
@@ -32,8 +32,8 @@ func GeneratePDF(url string, outputPath string, doc *v1.SinglePageExtended) erro
 	// PDF output buffer
 	var pdfData []byte
 	err := chromedp.Run(ctx,
-		chromedp.Navigate(url),       // Open the HTML page
-		chromedp.WaitVisible("body"), // Ensure page is fully loaded
+		chromedp.Navigate(url),     // Open the HTML page
+		chromedp.WaitReady("page"), // Ensure page is fully loaded
 		chromedp.ActionFunc(func(ctx context.Context) error {
 			var err error
 			pdfData, _, err = page.PrintToPDF().

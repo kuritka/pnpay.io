@@ -1,5 +1,5 @@
 
-function cropPrintMark(pageSelector, size = '0.3cm', color = 'black',
+function cropPrintMark(pageSelector, size = '"{{.SinglePage.Spec.Marks.Size}}"', color = 'black',
                        { top = '', right = '', bottom = '', left = ''}={},
                        { borderTop = false, borderRight = false, borderBottom = false, borderLeft = false}={}
 ) {
@@ -51,5 +51,5 @@ function addMarks(pageSelector, size, color) {
 
 // Call the function with the target page selector and size for the marks
 window.onload = function() {
-  addMarks('page[sizeX="{{.SinglePage.Spec.Canvas.Width}}"][sizeY="{{.SinglePage.Spec.Canvas.Height}}"]', '0.3cm', 'black')
+  addMarks('page[sizeX="{{.SinglePage.Spec.Canvas.Width}}"][sizeY="{{.SinglePage.Spec.Canvas.Height}}"]', '{{.SinglePage.Spec.Canvas.ExtPadding}}', 'black')
 };

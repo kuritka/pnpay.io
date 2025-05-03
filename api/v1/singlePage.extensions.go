@@ -24,9 +24,9 @@ func NewSinglePageExtended(sp *SinglePage) (*SinglePageExtended, error) {
 }
 
 type ExtendedCanvas struct {
-	WidthCM float64 `yaml:"width" validate:"required"`
+	Width float64 `yaml:"width" validate:"required"`
 
-	HeightCM float64 `yaml:"height" validate:"required"`
+	Height float64 `yaml:"height" validate:"required"`
 }
 
 type Extensions struct {
@@ -39,17 +39,24 @@ func newExtensions(sp *SinglePage) (*Extensions, error) {
 	}
 	// PDF Canvas
 	var err error
-	extensions.PDFCanvas.WidthCM, err = strconv.ParseFloat(strings.Trim(sp.Spec.Canvas.Width, "cm"), 64)
+	printWidth, err := strconv.ParseFloat(strings.Trim(sp.Spec.Canvas.Width, "cm"), 64)
 	if err != nil {
 		return nil, err
 	}
-	extensions.PDFCanvas.HeightCM, err = strconv.ParseFloat(strings.Trim(sp.Spec.Canvas.Height, "cm"), 64)
+	printHeight, err := strconv.ParseFloat(strings.Trim(sp.Spec.Canvas.Height, "cm"), 64)
+	if err != nil {
+		return nil, err
+	}
+	shadowOverlap, err := strconv.ParseFloat(strings.Trim(sp.Spec.Canvas.ShadowOverlap, "cm"), 64)
+	if err != nil {
+		return nil, err
+	}
+	extPadding, err := strconv.ParseFloat(strings.Trim(sp.Spec.Canvas.ExtPadding, "cm"), 64)
 	if err != nil {
 		return nil, err
 	}
 	// PDF document has one cm padding around printed document
-	extensions.PDFCanvas.WidthCM++
-	extensions.PDFCanvas.HeightCM++
-
+	extensions.PDFCanvas.Width = printWidth + (shadowOverlap * 2) + (extPadding * 4)
+	extensions.PDFCanvas.Height = printHeight + (shadowOverlap * 2) + (extPadding * 4)
 	return extensions, err
 }

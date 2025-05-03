@@ -54,8 +54,11 @@ spec:
   canvas:
     width: "15cm"
     height: "11cm"
-    overlap: "0.5cm"
+    overlap: "1.0cm"
+    extPadding: "0.0cm"
+    innerPadding: "0.0cm"
   marks:
+    size: "0.5cm"
     border: "0.05cm solid black"
     generic:
       type: solid
@@ -75,7 +78,7 @@ spec:
   background:
     image:
       path: "./background.svg"
-    color: "#FFFFFF"
+    color: "grey"
   layers:
     - name: title
       kind: Text
