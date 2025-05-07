@@ -1,55 +1,48 @@
-
-function cropPrintMark(pageSelector, size = '"{{.SinglePage.Spec.Marks.Size}}"', color = 'black',
-                       { top = '', right = '', bottom = '', left = ''}={},
-                       { borderTop = false, borderRight = false, borderBottom = false, borderLeft = false}={}
-) {
-  const page = document.querySelector(pageSelector);                // Select the page element
-  const mark = document.createElement('div');
-  const border = "{{.SinglePage.Spec.Marks.Border}}"
-  mark.style.position = 'absolute';
-  if (top !== '') {
-    mark.style.top = top;
-  }
-  if (right !== '') {
-    mark.style.right = right;
-  }
-  if (bottom !== '') {
-    mark.style.bottom = bottom;
-  }
-  if (left !== '') {
-    mark.style.left = left;
-  }
-  mark.style.width = size;                                              // Set mark width
-  mark.style.height = size;                                             // Set mark height
-  mark.style.background = 'transparent';                                // Transparent background
-  if (borderTop) {
-    mark.style.borderTop = border;                                      // Set left border width
-  }
-  if (borderLeft) {
-    mark.style.borderLeft = border;                                     // Set left border width
-  }
-  if (borderRight) {
-    mark.style.borderRight = border;                                    // Set left border width
-  }
-  if (borderBottom) {
-    mark.style.borderBottom = border;                                   // Set left border width
-  }
-  page.appendChild(mark);
+function drawLine(x, y, width, height) {
+  const line = document.createElement('div');
+  line.style.position = 'absolute';
+  line.style.left = x;
+  line.style.top = y;
+  line.style.width = width;
+  line.style.height = height;
+  line.style.background = 'black';
+  document.body.appendChild(line);
 }
 
-function addMarks(pageSelector, size, color) {
-  const minus  = '-'+size
-  cropPrintMark(pageSelector, size, color,  {top: minus,  right:'0'}, {borderLeft: true});
-  cropPrintMark(pageSelector, size, color,  {top:'-0',  right: minus}, {borderBottom: true});
-  cropPrintMark(pageSelector, size, color,  {top: minus,  left:'0'}, {borderRight: true});
-  cropPrintMark(pageSelector, size, color,  {top:'0',  left: minus}, {borderBottom: true});
-  cropPrintMark(pageSelector, size, color,  {bottom: minus,  right:'0'}, {borderLeft: true});
-  cropPrintMark(pageSelector, size, color,  {bottom:'0',  right: minus}, {borderTop: true});
-  cropPrintMark(pageSelector, size, color,  {bottom:'0',  left: minus}, {borderTop: true});
-  cropPrintMark(pageSelector, size, color,  {bottom: minus,  left:'0'}, {borderRight: true});
-}
+window.onload = function () {
+  const thickness = '0.2mm';       // Thickness of lines
+  const length = '5mm';            // Length of crop marks
+  const pixel = '0.26mm';          // Approx. 1px correction (96 DPI)
 
-// Call the function with the target page selector and size for the marks
-window.onload = function() {
-  addMarks('page[sizeX="{{.SinglePage.Spec.Canvas.Width}}"][sizeY="{{.SinglePage.Spec.Canvas.Height}}"]', '{{.SinglePage.Spec.Canvas.ExtPadding}}', 'black')
+  // --- CORNERS ---
+
+  // Top-left corner
+  drawLine('calc(1cm - ' + length + ' - ' + pixel + ')', 'calc(1cm - ' + pixel + ')', length, thickness); // horizontal
+  drawLine('calc(1cm - ' + pixel + ')', 'calc(1cm - ' + length + ' - ' + pixel + ')', thickness, length); // vertical
+
+  // Top-right corner
+  drawLine('calc(16cm + ' + pixel + ')', 'calc(1cm - ' + pixel + ')', length, thickness); // horizontal (fixed)
+  drawLine('calc(16cm - ' + thickness + ' + ' + pixel + ')', 'calc(1cm - ' + length + ' - ' + pixel + ')', thickness, length); // vertical (fixed)
+
+  // Bottom-left corner
+  drawLine('calc(1cm - ' + length + ' - 1 * ' + pixel + ')', 'calc(12cm - 0 * ' + pixel + ')', length, thickness); // horizontal (double left shift)
+  drawLine('calc(1cm - ' + pixel + ')', 'calc(12cm + ' + pixel + ')', thickness, length); // vertical
+
+  // Bottom-right corner
+  drawLine('calc(16cm + ' + pixel + ')', 'calc(12cm)', length, thickness); // horizontal (fixed)
+  drawLine('calc(16cm - ' + thickness + ' + ' + pixel + ')', 'calc(12cm + ' + pixel + ')', thickness, length); // vertical (finally visible)
+
+  // --- MIDPOINTS ---
+
+  // Top-center
+  drawLine('calc(8.5cm - 0.1mm)', 'calc(1cm - ' + length + ' - ' + pixel + ')', thickness, length);
+
+  // Bottom-center
+  drawLine('calc(8.5cm - 0.1mm)', 'calc(12cm + ' + pixel + ')', thickness, length);
+
+  // Left-center
+  drawLine('calc(1cm - ' + length + ' - ' + pixel + ')', 'calc(6.5cm - 0.1mm)', length, thickness);
+
+  // Right-center
+  drawLine('calc(16cm + ' + pixel + ')', 'calc(6.5cm - 0.1mm)', length, thickness);
 };
